@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "07d9bd45d445a922fa5f3f3b5a420c2d",
+    "content-hash": "b5bc23ceb9a61e84e30c0d4534a9c7cf",
     "packages": [
         {
             "name": "monolog/monolog",
@@ -90,12 +90,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/NeroReflex/Gishiki.git",
-                "reference": "6cde7437285f291ca4d157fbd7664b10d423b50c"
+                "reference": "c16ee3624faf8746148b40b6ebce338c5a215f7a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/NeroReflex/Gishiki/zipball/6cde7437285f291ca4d157fbd7664b10d423b50c",
-                "reference": "6cde7437285f291ca4d157fbd7664b10d423b50c",
+                "url": "https://api.github.com/repos/NeroReflex/Gishiki/zipball/c16ee3624faf8746148b40b6ebce338c5a215f7a",
+                "reference": "c16ee3624faf8746148b40b6ebce338c5a215f7a",
                 "shasum": ""
             },
             "require": {
@@ -150,7 +150,7 @@
                 }
             ],
             "description": "Gishiki is a modern, fast and secure MVC framework perfect when creating a website or a web service.",
-            "time": "2017-05-30 08:21:59"
+            "time": "2017-05-30 09:19:04"
         },
         {
             "name": "psr/http-message",
@@ -307,6 +307,8 @@
     },
     "prefer-stable": false,
     "prefer-lowest": false,
-    "platform": [],
+    "platform": {
+        "ext-pdo_sqlite": "*"
+    },
     "platform-dev": []
 }

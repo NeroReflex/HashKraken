@@ -3,7 +3,8 @@
     "description": "Demostration of the Gishiki framework througth hashing craking",
     "type": "project",
     "require": {
-        "neroreflex\/gishiki": "dev-master"
+        "neroreflex\/gishiki": "dev-master",
+	"ext-pdo_sqlite": "*"
     },
     "license": "MIT License",
     "authors": [
