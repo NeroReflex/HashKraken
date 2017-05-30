@@ -1,0 +1,27 @@
+{
+    "general": {
+        "development": true,
+        "autolog": "default"
+    },
+    "loggers": {
+        "default": [
+            {
+                "class": "StreamHandler",
+                "connection": [
+                    "customLog.log",
+                    400
+                ]
+            }
+        ]
+    },
+    "security": {
+        "serverKey": "file:\/\/private_key.pem",
+        "serverPassword": "0fac65eca05591028a5371d9287a7aa0deb64ba91895f44ed1dc02befa4ddfc1"
+    },
+    "connections": [
+        {
+            "name": "default",
+            "query": "sqlite:\/\/default.sqlite"
+        }
+    ]
+}

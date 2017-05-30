@@ -1,0 +1,21 @@
+{
+    "name": "neroreflex\/hashkraken",
+    "description": "Demostration of the Gishiki framework througth hashing craking",
+    "type": "project",
+    "require": {
+        "neroreflex\/gishiki": "dev-master"
+    },
+    "license": "MIT License",
+    "authors": [
+        {
+            "name": "Denis Benato",
+            "email": "benato.denis96@gmail.com"
+        }
+    ],
+    "autoload": {
+        "classmap": [
+            "Controllers",
+            "Models"
+        ]
+    }
+}
