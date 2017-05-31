@@ -17,15 +17,11 @@ git clone https://github.com/NeroReflex/HashKraken.git
 cd HashKraken
 vagrant up
 vagrant ssh
-```
-
-Open another terminal and...
-```sh
-cd HashKraken
+exit
 php dictionary.php localhost:8088 dictionary_small.txt
 ```
 
-Enjoy colorful text spreading all over your terminals!
+Enjoy colorful text spreading all over your terminal!
 
 ## License
 Released under the MIT License. Read the LICENSE file.
