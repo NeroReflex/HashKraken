@@ -19,10 +19,11 @@ final class HashedPassword extends Controller
 {
     public function hash()
     {
-	    $word = $this->arguments->get('word');
+        $deserializedRequest = $this->request->getDeserializedBody();
+
+	    $word = ($this->arguments->has('word')) ? $this->arguments->get('word') : $deserializedRequest->get('message');
 
         $serializableResponse = new SerializableCollection([
-            "time" => time(),
             "message" => $word,
             "sha1" => Algorithms::hash($word, Algorithms::SHA1),
             "sha256" => Algorithms::hash($word, Algorithms::SHA256),
@@ -31,19 +32,17 @@ final class HashedPassword extends Controller
             "md5" => Algorithms::hash($word, Algorithms::MD5),
         ]);
 
-        $this->response->setSerializedBody($serializableResponse);
-        
         $connection = DatabaseManager::retrieve('default');
         $presence = $connection->read(
             "hashes",
             SelectionCriteria::select(["message" => $word]),
             ResultModifier::initialize()->limit(1));
         
-        if (count($presence) == 0) {
-            // it is useless to save the time
-            $serializableResponse->remove("time");
+        if (count($presence) == 0)
             $connection->create("hashes", $serializableResponse);
-        }        
+
+        $serializableResponse->set("time", time());
+        $this->response->setSerializedBody($serializableResponse);
     }
 
     public function reverse()

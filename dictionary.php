@@ -28,11 +28,11 @@ if ($handle) {
 	$i++;
     }
 
-    echo "aptempted to hash ".$i." words";
+    echo "aptempted to hash ".$i." strings. Done.";
 
     fclose($handle);
 } else {
-    echo "Error while opening the file ".$argv[2];
+    echo "Error while opening the file ".$argv[2]." Halt.";
 }
 
 echo "\n\n";
