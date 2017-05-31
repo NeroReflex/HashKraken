@@ -4,9 +4,6 @@ Demostration of the [Gishiki](https://github.com/NeroReflex/Gishiki) framework t
 ## Usage
 This tool is just a demonstration and is not meant to be used in __ANY__ way!
 
-## Demo
-You can find a *probably* live demo at this address: [https://hashkraken.herokuapp.com](https://hashkraken.herokuapp.com).
-
 ## I want to be an hacker
 Install [git](https://git-scm.com), [git-lfs](https://git-lfs.github.com)
 and [Vagrant](https://www.vagrantup.com).
