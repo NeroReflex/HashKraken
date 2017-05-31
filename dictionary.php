@@ -13,6 +13,7 @@ use Gishiki\Core\Environment;
 use Gishiki\CLI\Console;
 use Gishiki\Algorithms\Collections\SerializableCollection;
 use Gishiki\CLI\ConsoleColor;
+use Gishiki\Algorithms\Collections\DeserializationException;
 
 Gishiki::initialize();
 
