@@ -29,7 +29,7 @@ Route::any(Route::NOT_FOUND, function (Request &$request, Response &$response) {
     $response->setSerializedBody($result);
 });
 
-
-Route::get("/Hash/{word:string}", "HashedPassword->hash");
+Route::get("/setup", "HashedPassword->setup");
+Route::get("/hash/{word:string}", "HashedPassword->hash");
 //this triggers the framework execution
 Gishiki::run();

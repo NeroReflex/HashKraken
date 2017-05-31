@@ -90,12 +90,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/NeroReflex/Gishiki.git",
-                "reference": "c16ee3624faf8746148b40b6ebce338c5a215f7a"
+                "reference": "6f7340998e71f60705afbc3e8fd3e19cef9f0311"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/NeroReflex/Gishiki/zipball/c16ee3624faf8746148b40b6ebce338c5a215f7a",
-                "reference": "c16ee3624faf8746148b40b6ebce338c5a215f7a",
+                "url": "https://api.github.com/repos/NeroReflex/Gishiki/zipball/6f7340998e71f60705afbc3e8fd3e19cef9f0311",
+                "reference": "6f7340998e71f60705afbc3e8fd3e19cef9f0311",
                 "shasum": ""
             },
             "require": {
@@ -150,7 +150,7 @@
                 }
             ],
             "description": "Gishiki is a modern, fast and secure MVC framework perfect when creating a website or a web service.",
-            "time": "2017-05-30 09:19:04"
+            "time": "2017-05-31 02:51:19"
         },
         {
             "name": "psr/http-message",
