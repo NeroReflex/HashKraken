@@ -12,6 +12,8 @@ Open a terminal and issue:
 ```sh
 git clone https://github.com/NeroReflex/HashKraken.git
 cd HashKraken
+wget https://getcomposer.org/composer.phar
+php composer.phar install --no-dev
 php -S localhost:8080 -t ./
 ```
 
