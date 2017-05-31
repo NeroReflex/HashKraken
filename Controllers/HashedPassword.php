@@ -93,6 +93,10 @@ final class HashedPassword extends Controller
             ]);
 
         if (count($result) >= 1) {
+            foreach ($result as &$row) {
+                unset($row["id"]);
+            }
+            
             $response->set("collisions", $result);
         }
         
