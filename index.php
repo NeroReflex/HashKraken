@@ -30,6 +30,6 @@ Route::any(Route::NOT_FOUND, function (Request &$request, Response &$response) {
 });
 
 
-Route::get("/HashedPassword", "HashedPassword->index");
+Route::get("/Hash/{word:string}", "HashedPassword->hash");
 //this triggers the framework execution
 Gishiki::run();
