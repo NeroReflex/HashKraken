@@ -86,7 +86,7 @@ final class HashedPassword extends Controller
         $result = $connection->read(
             "hashes",
             $searchQuery,
-            ResultModifier::initialize()->limit(1));
+            ResultModifier::initialize());
 
         $response = new SerializableCollection([
                 "found" => count($result),

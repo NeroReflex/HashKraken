@@ -22,13 +22,13 @@ Vagrant.configure(2) do |config|
 
      vb.name = "HashKraken"
      # Customize the amount of memory on the VM:
-     vb.memory = "1024"
+     vb.memory = "4096"
 
      # Avoid ubuntu network problems at boot
      vb.customize ["modifyvm", :id, "--cableconnected1", "on"]
 
      # Limit CPU usage
-     vb.customize ["modifyvm", :id, "--cpuexecutioncap", "65"]
+     vb.customize ["modifyvm", :id, "--cpuexecutioncap", "100"]
    end
 
   # Enable USB Controller on VirtualBox
@@ -44,7 +44,7 @@ Vagrant.configure(2) do |config|
      sudo DEBIAN_FRONTEND=noninteractive
      sudo apt-get -y install curl git openssl pkg-config libssl-dev python wget zlib1g-dev unzip openssh-client php7.0 php7.0-mbstring php7.0-cli php7.0-curl php7.0-json php7.0-xml php7.0-sqlite php7.0-pgsql php7.0-mysql php7.0-dev apache2 libapache2-mod-php7.0
 
-     printf "Enabling mod_rewrite"
+     printf "Enabling apache2 mods"
      sudo a2enmod rewrite
      sudo a2enmod headers
      sudo cp -f /vagrant/000-default.conf /etc/apache2/sites-available/000-default.conf
