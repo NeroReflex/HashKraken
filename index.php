@@ -40,7 +40,7 @@ Route::any(Route::NOT_FOUND, function (Request &$request, Response &$response) {
 
 Route::get("/setup", "HashedPassword->setup");
 Route::get("/hash/{word:string}", "HashedPassword->hash");
-Route::get("/hash", "HashedPassword->hash");
+Route::post("/hash", "HashedPassword->hash");
 Route::get("/reverse/{hash:string}", "HashedPassword->reverse");
 //this triggers the framework execution
 Gishiki::run();
