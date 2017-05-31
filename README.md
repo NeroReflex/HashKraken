@@ -8,21 +8,21 @@ This tool is just a demonstration and is not meant to be used in __ANY__ way!
 You can find a *probably* live demo at this address: [https://hashkraken.herokuapp.com](https://hashkraken.herokuapp.com).
 
 ## I want to be an hacker
-Install [git](https://git-scm.com) and [git-lfs](https://git-lfs.github.com).
+Install [git](https://git-scm.com), [git-lfs](https://git-lfs.github.com)
+and [Vagrant](https://www.vagrantup.com).
 
 Open a terminal and issue:
 ```sh
 git clone https://github.com/NeroReflex/HashKraken.git
 cd HashKraken
-wget https://getcomposer.org/composer.phar
-php composer.phar install --no-dev
-php -S localhost:8080 -t ./
+vagrant up
+vagrant ssh
 ```
 
 Open another terminal and...
 ```sh
 cd HashKraken
-php dictionary.php localhost:8080 dictionary.txt
+php dictionary.php localhost:8088 dictionary_small.txt
 ```
 
 Enjoy colorful text spreading all over your terminals!
