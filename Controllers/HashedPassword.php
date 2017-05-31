@@ -50,14 +50,42 @@ final class HashedPassword extends Controller
         $hash = $this->arguments->get('hash');
         
         $connection = DatabaseManager::retrieve('default');
-        $result = $connection->read(
-            "hashes",
-            SelectionCriteria::select()
+
+        //optimize search
+        $searchQuery = SelectionCriteria::select()
                 ->OrWhere('sha1', FieldRelation::EQUAL, $hash)
                 ->OrWhere('sha256', FieldRelation::EQUAL, $hash)
                 ->OrWhere('sha328', FieldRelation::EQUAL, $hash)
                 ->OrWhere('sha512', FieldRelation::EQUAL, $hash)
-                ->OrWhere('md5', FieldRelation::EQUAL, $hash),
+                ->OrWhere('md5', FieldRelation::EQUAL, $hash);
+        switch (strlen($hash)) {
+            case 40:
+                $searchQuery = SelectionCriteria::select(['sha1' => $hash]);
+                break;
+
+            case 64:
+                $searchQuery = SelectionCriteria::select(['sha256' => $hash]);
+                break;
+
+            case 96:
+                $searchQuery = SelectionCriteria::select(['sha328' => $hash]);
+                break;
+
+            case 128:
+                $searchQuery = SelectionCriteria::select(['sha512' => $hash]);
+                break;
+
+            case 32:
+                $searchQuery = SelectionCriteria::select(['md5' => $hash]);
+                break;
+
+            default:
+                // use the ugly (standard) one
+        }
+
+        $result = $connection->read(
+            "hashes",
+            $searchQuery,
             ResultModifier::initialize()->limit(1));
 
         $response = new SerializableCollection([
@@ -65,9 +93,11 @@ final class HashedPassword extends Controller
             ]);
 
         if (count($result) >= 1) {
-            $response->set("message", $result[0]["message"]);
+            $response->set("collisions", $result);
         }
         
+        $response->set('time', time());
+
         $this->response->setSerializedBody($response);
     }
 
