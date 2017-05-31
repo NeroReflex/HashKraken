@@ -1,38 +1,74 @@
+#!/usr/bin/env php
 <?php
+include __DIR__.'/vendor/autoload.php';
+
+global $argv;
+global $argc;
+
 ini_set('memory_limit', '-1');
 set_time_limit(0);
 
-if ($argc < 3) die("Usage: php dictionary.php localhost:8080 dictionary.txt");
+use Gishiki\Gishiki;
+use Gishiki\Core\Environment;
+use Gishiki\CLI\Console;
+use Gishiki\Algorithms\Collections\SerializableCollection;
+use Gishiki\CLI\ConsoleColor;
 
-$hashUrl = $argv[1];
+Gishiki::initialize();
 
-$handle = fopen($argv[2], "r");
-if ($handle) {
-    $i = 0;
-    while (($line = fgets($handle)) !== false) {
-        // create curl resource
-        $ch = curl_init();
+if ($argc < 3) {
+    Console::setForegroundColor(ConsoleColor::TEXT_RED);
+    Console::setBackgroundColor(ConsoleColor::BACKGROUND_WHITE);
+    Console::writeLine("Usage: php dictionary.php localhost:8080 dictionary.txt");
 
-        // set url
-        curl_setopt($ch, CURLOPT_URL, hashUrl."/hash/".urlencode(trim($line)));
-
-        //return the transfer as a string
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-
-        // $output contains the output string
-        $output = curl_exec($ch);
-
-        // close curl resource to free up system resources
-        curl_close($ch);
-
-	$i++;
-    }
-
-    echo "aptempted to hash ".$i." strings. Done.";
-
-    fclose($handle);
-} else {
-    echo "Error while opening the file ".$argv[2]." Halt.";
+    exit(-1);
 }
 
-echo "\n\n";
+$handle = fopen($argv[2], "r");
+
+if (!$handle) {
+    Console::setForegroundColor(ConsoleColor::TEXT_RED);
+    Console::setBackgroundColor(ConsoleColor::BACKGROUND_WHITE);
+    Console::writeLine("Error while opening the file ".$argv[2]." Halt.");
+    exit(-1);
+}
+
+$i = 0;
+while (($line = fgets($handle)) !== false) {
+    $messageEncoded = new SerializableCollection(['message' => trim($line)]);    
+
+    // create curl resource
+    $ch = curl_init();
+
+    // set url
+    curl_setopt($ch, CURLOPT_URL, $argv[1]."/hash");
+
+    // set method
+    curl_setopt($ch, CURLOPT_POST, 1);
+    
+    // set content
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $messageEncoded->serialize());
+    curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type:application/json']);
+    
+    // return response instead of printing.
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+    // $output contains the output string
+    $output = curl_exec($ch);
+
+    // close curl resource to free up system resources
+    curl_close($ch);
+
+    // deserialize the result
+    $decodedResult = SerializableCollection::deserialize($output);
+    
+    Console::writeLine($decodedResult->get('message')." => ".$decodedResult->get('sha1'));
+
+    $i++;
+}
+
+Console::setForegroundColor(ConsoleColor::TEXT_GREEN);
+Console::setBackgroundColor(ConsoleColor::BACKGROUND_WHITE);
+Console::writeLine("aptempted to hash ".$i." strings. Done.");
+
+fclose($handle);

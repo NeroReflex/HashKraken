@@ -20,10 +20,10 @@ php -S localhost:8080 -t ./
 Open another terminal and...
 ```sh
 cd HashKraken
-php dictionary.php localhost:8080 dictionary.txt &
+php dictionary.php localhost:8080 dictionary.txt
 ```
 
-Enjoy colorful text spreading all over your first console!
+Enjoy colorful text spreading all over your terminals!
 
 ## License
 Released under the MIT License. Read the LICENSE file.
