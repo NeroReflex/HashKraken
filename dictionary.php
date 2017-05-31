@@ -13,6 +13,7 @@ use Gishiki\Core\Environment;
 use Gishiki\CLI\Console;
 use Gishiki\Algorithms\Collections\SerializableCollection;
 use Gishiki\CLI\ConsoleColor;
+use Gishiki\Algorithms\Collections\DeserializationException;
 
 Gishiki::initialize();
 
@@ -35,34 +36,39 @@ if (!$handle) {
 
 $i = 0;
 while (($line = fgets($handle)) !== false) {
-    $messageEncoded = new SerializableCollection(['message' => trim($line)]);    
+    $messageEncoded = new SerializableCollection(['message' => trim($line)]);
 
-    // create curl resource
-    $ch = curl_init();
+    try {
+         // create curl resource
+         $ch = curl_init();
 
-    // set url
-    curl_setopt($ch, CURLOPT_URL, $argv[1]."/hash");
+         // set url
+         curl_setopt($ch, CURLOPT_URL, $argv[1]."/hash");
 
-    // set method
-    curl_setopt($ch, CURLOPT_POST, 1);
-    
-    // set content
-    curl_setopt($ch, CURLOPT_POSTFIELDS, $messageEncoded->serialize());
-    curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type:application/json']);
-    
-    // return response instead of printing.
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+         // set method
+         curl_setopt($ch, CURLOPT_POST, 1);
 
-    // $output contains the output string
-    $output = curl_exec($ch);
+         // set content
+         curl_setopt($ch, CURLOPT_POSTFIELDS, $messageEncoded->serialize());
+         curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type:application/json']);
 
-    // close curl resource to free up system resources
-    curl_close($ch);
+         // return response instead of printing.
+         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 
-    // deserialize the result
-    $decodedResult = SerializableCollection::deserialize($output);
-    
-    Console::writeLine($decodedResult->get('message')." => ".$decodedResult->get('sha1'));
+         // $output contains the output string
+         $output = curl_exec($ch);
+
+         // close curl resource to free up system resources
+         curl_close($ch);
+
+         // deserialize the result
+         $decodedResult = SerializableCollection::deserialize($output);
+
+         Console::writeLine($decodedResult->get('message')." => sha256:".$decodedResult->get('sha256'));
+
+    } catch (DeserializationException $ex) {
+         Console::writeLine($decodedResult->get('message')." => failed");
+    }
 
     $i++;
 }
