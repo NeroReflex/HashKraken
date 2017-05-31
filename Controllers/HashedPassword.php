@@ -46,6 +46,32 @@ final class HashedPassword extends Controller
         }        
     }
 
+    public function reverse()
+    {
+        $hash = $this->arguments->get('hash');
+        
+        $connection = DatabaseManager::retrieve('default');
+        $result = $connection->read(
+            "hashes",
+            SelectionCriteria::select()
+                ->OrWhere('sha1', FieldRelation::EQUAL, $hash)
+                ->OrWhere('sha256', FieldRelation::EQUAL, $hash)
+                ->OrWhere('sha328', FieldRelation::EQUAL, $hash)
+                ->OrWhere('sha512', FieldRelation::EQUAL, $hash)
+                ->OrWhere('md5', FieldRelation::EQUAL, $hash),
+            ResultModifier::initialize()->limit(1));
+
+        $response = new SerializableCollection([
+                "found" => count($result),
+            ]);
+
+        if (count($result) >= 1) {
+            $response->set("message", $result[0]["message"]);
+        }
+        
+        $this->response->setSerializedBody($response);
+    }
+
     public function setup()
     {
         $table = new Table("hashes");
