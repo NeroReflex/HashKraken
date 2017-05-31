@@ -8,6 +8,8 @@ This tool is just a demonstration and is not meant to be used in __ANY__ way!
 You can find a *probably* live demo at this address: [https://hashkraken.herokuapp.com](https://hashkraken.herokuapp.com).
 
 ## I want to be an hacker
+Install [git](https://git-scm.com) and [git-lfs](https://git-lfs.github.com).
+
 Open a terminal and issue:
 ```sh
 git clone https://github.com/NeroReflex/HashKraken.git
