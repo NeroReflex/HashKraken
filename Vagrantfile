@@ -7,7 +7,7 @@ Vagrant.configure(2) do |config|
 
   # Every Vagrant development environment requires a box. You can search for
   # boxes at https://atlas.hashicorp.com/search.
-   config.vm.box = "ubuntu/xenial64"
+   config.vm.box = "NeroReflex/Gishiki"
 
   # Create a public network, which generally matched to bridged network.
   # Bridged networks make the machine appear as another physical device on
@@ -39,39 +39,11 @@ Vagrant.configure(2) do |config|
 
   ###############################################################
    config.vm.provision "shell", inline: <<-SHELL
-     printf "\n\nInstalling software\n"
-     sudo apt-get update && sudo apt-get upgrade -y
-     sudo DEBIAN_FRONTEND=noninteractive
-     sudo apt-get -y install curl git openssl pkg-config libssl-dev python wget zlib1g-dev unzip openssh-client php7.0 php7.0-mbstring php7.0-cli php7.0-curl php7.0-json php7.0-xml php7.0-sqlite php7.0-pgsql php7.0-mysql php7.0-dev apache2 libapache2-mod-php7.0
+     sudo chmod 0777 -R /vagrant/errors.txt
 
-     printf "Enabling apache2 mods"
-     sudo a2enmod rewrite
-     sudo a2enmod headers
-     sudo cp -f /vagrant/000-default.conf /etc/apache2/sites-available/000-default.conf
-     sudo service apache2 restart
-
-     printf "\n\nInstalling PECL PHP extensions\n"
-     sudo rm -f /usr/local/etc/php/conf.d/pecl.ini
-     sudo touch /usr/local/etc/php/conf.d/pecl.ini
-     sudo chmod 0775 -R /usr/local/etc/php/conf.d
-     pecl config-set php_ini /usr/local/etc/php/conf.d/pecl.ini
-     pear config-set php_ini /usr/local/etc/php/conf.d/pecl.ini
-     pecl install xdebug-2.4.0
-
-     printf "\n\nInstalling Composer\n"
-     curl -sS https://getcomposer.org/installer | sudo php -- --install-dir=/usr/local/bin --filename=composer
-
-     printf "\n\nSystem info:\n"
-     php -i
-
-     # installing the framework
      cd /vagrant
      composer install --no-dev
 
      printf "\n\n\n\nThe box is ready. Now simply run \"vagrant ssh\" to connect!\n"
-
    SHELL
-
-
-
 end
