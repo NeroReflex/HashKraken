@@ -14,7 +14,7 @@ git clone https://github.com/NeroReflex/HashKraken.git
 cd HashKraken
 vagrant up
 vagrant ssh
-exit
+cd /vagrant
 php dictionary.php localhost:8088 dictionary_small.txt
 ```
 
