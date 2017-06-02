@@ -15,7 +15,7 @@ cd HashKraken
 vagrant up
 vagrant ssh
 cd /vagrant
-php dictionary.php localhost:8088 dictionary_small.txt
+php dictionary.php localhost dictionary_small.txt
 ```
 
 Enjoy colorful text spreading all over your terminal!
