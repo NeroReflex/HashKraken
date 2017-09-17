@@ -25,7 +25,10 @@ if ($argc < 3) {
     exit(-1);
 }
 
-$handle = fopen($argv[2], "r");
+$fileStr = $argv[2];
+$urlStr = trim($argv[1], " \r\n\t\0\x0B/");
+
+$handle = fopen($fileStr, "r");
 
 if (!$handle) {
     Console::setForegroundColor(ConsoleColor::TEXT_RED);
@@ -43,7 +46,7 @@ while (($line = fgets($handle)) !== false) {
          $ch = curl_init();
 
          // set url
-         curl_setopt($ch, CURLOPT_URL, $argv[1]."/hash");
+         curl_setopt($ch, CURLOPT_URL, $urlStr."/hash");
 
          // set method
          curl_setopt($ch, CURLOPT_POST, 1);
@@ -67,7 +70,9 @@ while (($line = fgets($handle)) !== false) {
          Console::writeLine($decodedResult->get('message')." => sha256:".$decodedResult->get('sha256'));
 
     } catch (DeserializationException $ex) {
-         Console::writeLine($decodedResult->get('message')." => failed");
+
+
+         Console::writeLine($messageEncoded->get('message')." => failed");
     }
 
     $i++;

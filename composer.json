@@ -1,6 +1,6 @@
 {
     "name": "neroreflex\/hashkraken",
-    "description": "Demostration of the Gishiki framework througth hashing craking",
+    "description": "Demonstration of the Gishiki framework through hash cracking",
     "type": "project",
     "require": {
         "neroreflex\/gishiki": "dev-master",
