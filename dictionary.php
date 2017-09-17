@@ -75,6 +75,6 @@ while (($line = fgets($handle)) !== false) {
 
 Console::setForegroundColor(ConsoleColor::TEXT_GREEN);
 Console::setBackgroundColor(ConsoleColor::BACKGROUND_WHITE);
-Console::writeLine("aptempted to hash ".$i." strings. Done.");
+Console::writeLine("Hashed ".$i." strings. Done.");
 
 fclose($handle);

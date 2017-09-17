@@ -52,12 +52,7 @@ final class HashedPassword extends Controller
         $connection = DatabaseManager::retrieve('default');
 
         //optimize search
-        $searchQuery = SelectionCriteria::select()
-                ->OrWhere('sha1', FieldRelation::EQUAL, $hash)
-                ->OrWhere('sha256', FieldRelation::EQUAL, $hash)
-                ->OrWhere('sha328', FieldRelation::EQUAL, $hash)
-                ->OrWhere('sha512', FieldRelation::EQUAL, $hash)
-                ->OrWhere('md5', FieldRelation::EQUAL, $hash);
+        $searchQuery = null;
         switch (strlen($hash)) {
             case 40:
                 $searchQuery = SelectionCriteria::select(['sha1' => $hash]);
@@ -81,6 +76,12 @@ final class HashedPassword extends Controller
 
             default:
                 // use the ugly (standard) one
+                SelectionCriteria::select()
+                    ->OrWhere('sha1', FieldRelation::EQUAL, $hash)
+                    ->OrWhere('sha256', FieldRelation::EQUAL, $hash)
+                    ->OrWhere('sha328', FieldRelation::EQUAL, $hash)
+                    ->OrWhere('sha512', FieldRelation::EQUAL, $hash)
+                    ->OrWhere('md5', FieldRelation::EQUAL, $hash);
         }
 
         $result = $connection->read(

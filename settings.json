@@ -21,7 +21,7 @@
     "connections": [
         {
             "name": "default",
-            "query": "Pgsql:\/\/host=localhost;port=5432;dbname=travis;user=vagrant;password=vagrant"
+            "query": "{{@HEROKU_PGSQL}}"
         },
         {
             "name": "file",

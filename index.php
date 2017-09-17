@@ -11,13 +11,8 @@ use Gishiki\Gishiki;
 
 Route::get("/", function (Request &$request, Response &$response) {
     $result = new SerializableCollection([
-        "disclaimer" => "This service is not intendended to be really used except for trial! ".
-                        "This service MUST not be used to force ANY password!".
-                        "This service goes offline after a certain number of usage time, so don't rely on it!! (come on! if you are searching shit like that find something better to do)!".
-                        "What you do is your responsibility!".
-                        "Really: find a something better to do!",
         "framework" => "https://github.com/NeroReflex/Gishiki",
-        "info" => "This is a free service used to demostrate the Gishiki framework",
+        "info" => "This is a free service used to demonstrate the Gishiki framework",
         "list" => "https://github.com/danielmiessler/SecLists/tree/master/Passwords",
         "source" => "https://github.com/NeroReflex/HashKraken",
         "time" => time()

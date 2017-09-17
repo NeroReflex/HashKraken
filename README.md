@@ -1,9 +1,6 @@
 # HashKraken
 Demostration of the [Gishiki](https://github.com/NeroReflex/Gishiki) framework througth hash craking!
 
-## Usage
-This tool is just a demonstration and is not meant to be used in __ANY__ way!
-
 ## I want to be an hacker
 Install [git](https://git-scm.com), [git-lfs](https://git-lfs.github.com)
 and [Vagrant](https://www.vagrantup.com).
